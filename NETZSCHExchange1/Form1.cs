@@ -7,7 +7,7 @@ namespace NETZSCHExchange1
 {
     public partial class Form1 : Form
     {
-        private const string apiUrl = "http://localhost:3001/api/data";
+        private const string apiUrl = "http://localhost:3001/api/data/react";
         private HttpClient client = new HttpClient();
 
         public Form1()
@@ -33,7 +33,7 @@ namespace NETZSCHExchange1
             try
             {
                 var response = await client.GetStringAsync(apiUrl);
-                if (response != txtInput.Text)
+                if (response != txtOutput.Text)
                 {
                     txtOutput.Text = response;
                 }
@@ -49,7 +49,7 @@ namespace NETZSCHExchange1
             try
             {
                 var content = new StringContent("{\"data\":\"" + txtInput.Text + "\"}", Encoding.UTF8, "application/json");
-                await client.PostAsync(apiUrl, content);
+                await client.PostAsync("http://localhost:3001/api/data/net", content);
             }
             catch
             {
