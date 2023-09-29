@@ -50,6 +50,5 @@ namespace NETZSCHExchange1
             Console.WriteLine("Sending from .NET:", json.ToString());
             await ws.SendAsync(new ArraySegment<byte>(message), WebSocketMessageType.Text, true, CancellationToken.None);
         }
-
     }
 }

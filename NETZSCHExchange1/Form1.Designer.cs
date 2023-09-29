@@ -30,13 +30,16 @@
         {
             this.txtInput = new System.Windows.Forms.TextBox();
             this.lblOutput = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtInput
             // 
-            this.txtInput.Location = new System.Drawing.Point(27, 26);
+            this.txtInput.Location = new System.Drawing.Point(16, 29);
+            this.txtInput.Multiline = true;
             this.txtInput.Name = "txtInput";
-            this.txtInput.Size = new System.Drawing.Size(235, 20);
+            this.txtInput.Size = new System.Drawing.Size(256, 83);
             this.txtInput.TabIndex = 0;
             this.txtInput.TextChanged += new System.EventHandler(this.txtInput_TextChanged);
             // 
@@ -44,15 +47,35 @@
             // 
             this.lblOutput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblOutput.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblOutput.Location = new System.Drawing.Point(27, 131);
+            this.lblOutput.Location = new System.Drawing.Point(15, 148);
             this.lblOutput.Margin = new System.Windows.Forms.Padding(0);
             this.lblOutput.Name = "lblOutput";
-            this.lblOutput.Size = new System.Drawing.Size(235, 112);
+            this.lblOutput.Size = new System.Drawing.Size(256, 104);
             this.lblOutput.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(199, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Say Something, NETZSCHE Exchanger!";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 135);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(174, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Current Web Exchanger\'s Message";
             // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblOutput);
             this.Controls.Add(this.txtInput);
             this.Name = "Form1";
@@ -66,6 +89,8 @@
 
         private System.Windows.Forms.TextBox txtInput;
         private System.Windows.Forms.Label lblOutput;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
     }
 }
 
