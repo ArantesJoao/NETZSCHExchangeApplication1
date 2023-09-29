@@ -28,37 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.txtInput = new System.Windows.Forms.TextBox();
-            this.txtOutput = new System.Windows.Forms.TextBox();
-            this.updateTimer = new System.Windows.Forms.Timer(this.components);
+            this.lblOutput = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtInput
             // 
-            this.txtInput.Location = new System.Drawing.Point(51, 74);
+            this.txtInput.Location = new System.Drawing.Point(27, 26);
             this.txtInput.Name = "txtInput";
-            this.txtInput.Size = new System.Drawing.Size(180, 20);
+            this.txtInput.Size = new System.Drawing.Size(235, 20);
             this.txtInput.TabIndex = 0;
             this.txtInput.TextChanged += new System.EventHandler(this.txtInput_TextChanged);
             // 
-            // txtOutput
+            // lblOutput
             // 
-            this.txtOutput.Location = new System.Drawing.Point(51, 140);
-            this.txtOutput.Name = "txtOutput";
-            this.txtOutput.Size = new System.Drawing.Size(180, 20);
-            this.txtOutput.TabIndex = 1;
-            // 
-            // updateTimer
-            // 
-            this.updateTimer.Enabled = true;
-            this.updateTimer.Interval = 1000;
-            this.updateTimer.Tick += new System.EventHandler(this.updateTimer_Tick);
+            this.lblOutput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblOutput.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblOutput.Location = new System.Drawing.Point(27, 131);
+            this.lblOutput.Margin = new System.Windows.Forms.Padding(0);
+            this.lblOutput.Name = "lblOutput";
+            this.lblOutput.Size = new System.Drawing.Size(235, 112);
+            this.lblOutput.TabIndex = 2;
             // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.txtOutput);
+            this.Controls.Add(this.lblOutput);
             this.Controls.Add(this.txtInput);
             this.Name = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -70,8 +65,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox txtInput;
-        private System.Windows.Forms.TextBox txtOutput;
-        private System.Windows.Forms.Timer updateTimer;
+        private System.Windows.Forms.Label lblOutput;
     }
 }
 

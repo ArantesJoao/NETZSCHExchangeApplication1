@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Text;
-using System.Net.Http;
+using System.Net.WebSockets;
+using System.Threading;
 using System.Windows.Forms;
+using Newtonsoft.Json.Linq;
 
 namespace NETZSCHExchange1
 {
     public partial class Form1 : Form
     {
-        private const string apiUrl = "http://localhost:3001/api/data/react";
-        private HttpClient client = new HttpClient();
+        private const string wsUrl = "ws://localhost:3001";
+        private ClientWebSocket ws = new ClientWebSocket();
 
         public Form1()
         {
@@ -17,44 +19,37 @@ namespace NETZSCHExchange1
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            try
-            {
-                var response = await client.GetStringAsync(apiUrl);
-                txtOutput.Text = response;
-            }
-            catch
-            {
-                // Handle connection errors, perhaps show a message to the user.
-            }
+            await ws.ConnectAsync(new Uri(wsUrl), CancellationToken.None);
+            ListenForMessages();
         }
 
-        private async void updateTimer_Tick(object sender, EventArgs e)
+        private async void ListenForMessages()
         {
-            try
+            var buffer = new ArraySegment<byte>(new byte[8192]);
+            while (ws.State == WebSocketState.Open)
             {
-                var response = await client.GetStringAsync(apiUrl);
-                if (response != txtOutput.Text)
+                var received = await ws.ReceiveAsync(buffer, CancellationToken.None);
+                var message = Encoding.UTF8.GetString(buffer.Array, 0, received.Count);
+                var json = JObject.Parse(message);
+                if (json["source"].ToString() == "react")
                 {
-                    txtOutput.Text = response;
+                    lblOutput.Text = json["data"].ToString();  // Changed from txtOutput.Text
                 }
-            }
-            catch
-            {
-                // Handle connection errors.
             }
         }
 
         private async void txtInput_TextChanged(object sender, EventArgs e)
         {
-            try
+            var inputValue = string.IsNullOrEmpty(txtInput.Text) ? " " : txtInput.Text;  // ensure to send empty space if !txtInput.Text
+            var json = new JObject
             {
-                var content = new StringContent("{\"data\":\"" + txtInput.Text + "\"}", Encoding.UTF8, "application/json");
-                await client.PostAsync("http://localhost:3001/api/data/net", content);
-            }
-            catch
-            {
-                // Handle connection errors.
-            }
+                ["source"] = "net",
+                ["data"] = inputValue
+            };
+            var message = Encoding.UTF8.GetBytes(json.ToString());
+            Console.WriteLine("Sending from .NET:", json.ToString());
+            await ws.SendAsync(new ArraySegment<byte>(message), WebSocketMessageType.Text, true, CancellationToken.None);
         }
+
     }
 }
